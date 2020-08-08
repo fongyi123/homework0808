@@ -1,0 +1,133 @@
+DROP DATABASE homework0808;
+
+create database homework0808 default character set utf8;
+
+use homework0808;
+
+--
+--
+
+DROP TABLE IF EXISTS `employees`;
+CREATE TABLE `employees` (
+  `EmployeeID` int(11) NOT NULL default '0',
+  `EmployeeName` varchar(20) NOT NULL default '',
+  `BirthDate` datetime default NULL,
+  `City` varchar(15) default NULL,
+  `HomePhone` varchar(24) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+--
+
+ALTER TABLE `employees` DISABLE KEYS ;
+INSERT INTO `employees` VALUES (901,'簡奉君','1948-12-08 00:00:00','TaiChun','042298886');
+INSERT INTO `employees` VALUES (902,'黃靖輪','1948-12-08 00:00:00','TaiPei','021818111');
+INSERT INTO `employees` VALUES (903,'蔡中穎','1948-12-08 00:00:00','TaiNan','065198336');
+INSERT INTO `employees` VALUES (904,'王燕博','1948-12-08 00:00:00','TaiChun','042298786');
+INSERT INTO `employees` VALUES (905,'林心儀','1948-12-08 00:00:00','TaiPei','021818191');
+INSERT INTO `employees` VALUES (906,'林雨媗','1948-12-08 00:00:00','TaiNan','065198536');
+ALTER TABLE `employees` ENABLE KEYS ;
+
+
+--
+--
+
+DROP TABLE IF EXISTS `order details`;
+CREATE TABLE `order details` (
+  `OrderID` int(11) NOT NULL default '0',
+  `MenuID` int(11) NOT NULL default '0',
+  `UnitPrice` decimal(19,4) NOT NULL default '0.0000',
+  `Quantity` smallint(6) NOT NULL default '0',
+  `Discount` float NOT NULL default '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+--
+ALTER TABLE `order details` DISABLE KEYS;
+INSERT INTO `order details` VALUES 
+(10001,101,'70',1,0),
+(10001,102,'75',2,0),
+(10001,103,'75',1,0),
+(10002,204,'75',3,0),
+(10002,205,'80',1,0),
+(10003,304,'75',4,0),
+(10004,501,'70',2,0.15),
+(10004,505,'80',1,0.15),
+(10005,402,'70',6,0),
+(10006,604,'75',3,0.05),
+(10006,605,'80',2,0.05);
+
+ALTER TABLE `order details` ENABLE KEYS;
+
+
+--
+--
+
+
+CREATE TABLE `orders` (
+  `OrderID` int(11) NOT NULL default '0',
+  `EmployeeID` int(11) default NULL,
+  `OrderDate` datetime default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+--
+
+ALTER TABLE `orders` DISABLE KEYS ;
+INSERT INTO `orders` VALUES (10001,905,'2020-07-04 00:00:00');
+INSERT INTO `orders` VALUES (10002,906,'2020-07-14 00:00:00');
+INSERT INTO `orders` VALUES (10003,905,'2020-07-24 00:00:00');
+INSERT INTO `orders` VALUES (10004,904,'2020-08-04 00:00:00');
+INSERT INTO `orders` VALUES (10005,902,'2020-08-04 00:00:00');
+INSERT INTO `orders` VALUES (10006,901,'2020-08-04 00:00:00');
+ALTER TABLE `orders` ENABLE KEYS ;
+
+--
+--
+
+DROP TABLE IF EXISTS `Menus`;
+CREATE TABLE `Menus` (
+  `MenuID` int(11) NOT NULL default '0',
+  `MenuName` varchar(40) NOT NULL default '',
+  `UnitPrice` decimal(19,4) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+--
+
+ALTER TABLE `Menus` DISABLE KEYS ;
+INSERT INTO `Menus` VALUES (101,'雞排丼飯','70'),(102,'豬排丼飯','75'),(103,'羊排丼飯','75'),(104,'咖哩丼飯','75'),(105,'牛肉丼飯','85');
+INSERT INTO `Menus` VALUES (201,'雞肉拉麵','70'),(202,'豬肉拉麵','75'),(203,'羊肉拉麵','75'),(204,'咖哩拉麵','75'),(205,'咖哩牛肉拉麵','80');
+INSERT INTO `Menus` VALUES (301,'雞排便當','70'),(302,'豬排便當','75'),(303,'羊排便當','75'),(304,'咖哩便當','75'),(305,'咖哩豬排便當','80');
+INSERT INTO `Menus` VALUES (401,'雞排飯團','65'),(402,'豬肉飯團','70'),(403,'羊肉飯團','75'),(404,'泡菜飯團','75'),(405,'牛肉飯團','85');
+INSERT INTO `Menus` VALUES (501,'雞肉涼麵','70'),(502,'豬肉涼麵','75'),(503,'羊肉涼麵','75'),(504,'咖哩涼麵','75'),(505,'咖哩牛肉涼麵','80');
+INSERT INTO `Menus` VALUES (601,'雞排漢堡','70'),(602,'豬排漢堡','75'),(603,'羊肉漢堡','75'),(604,'牛肉便當','75'),(605,'起司牛肉便當','80');
+ALTER TABLE `Menus` ENABLE KEYS ;
+
+
+--
+--
+
+DROP TABLE IF EXISTS `restaurants`;
+CREATE TABLE `restaurants` (
+  `restaurantID` int(11) NOT NULL default '0',
+  `restaurantName` varchar(40) NOT NULL default '',
+  `ContactName` varchar(30) default NULL,
+  `ContactTitle` varchar(30) default NULL,
+  `Address` varchar(60) default NULL,
+  `Phone` varchar(24) default NULL,
+  `Fax` varchar(24) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+--
+
+ALTER TABLE `restaurants` DISABLE KEYS ;
+INSERT INTO `restaurants` VALUES (1,'日式丼飯','林丼飯','店長','台中西屯區西屯路二段1000號','(03) 3585-5921',NULL);
+INSERT INTO `restaurants` VALUES (2,'拉麵達人','江拉麵','店長','台中西屯區逢甲路二段987號','(03) 4595-6633',NULL);
+INSERT INTO `restaurants` VALUES (3,'親民便當','何便當','店經理','台中西屯區英林路二段587號','(03) 3755-9512',NULL);
+INSERT INTO `restaurants` VALUES (4,'手工飯糰','陳飯糰','店長','台中西屯區河南路七段666號','(03) 3556-5991',NULL);
+INSERT INTO `restaurants` VALUES (5,'手打涼麵','黃涼麵','店經理','台中西屯區何東路八段777號','(03) 2155-3211',NULL);
+INSERT INTO `restaurants` VALUES (6,'美味漢堡','王翰保','店長','台中西屯區西屯路一段123號','(03) 3555-5011',NULL);
+
+ALTER TABLE `restaurants` ENABLE KEYS ;
